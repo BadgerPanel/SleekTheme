@@ -1,0 +1,16 @@
+{
+  "name": "Sleek",
+  "slug": "sleek",
+  "version": "1.0.0",
+  "description": "A modern, clean theme with light and dark mode. Inspired by professional CRM interfaces.",
+  "author": {
+    "name": "BadgerPanel",
+    "url": "https://badgerpanel.com"
+  },
+  "compatibility": {
+    "panel_min": "0.1.0"
+  },
+  "overrides": [
+    "styles/globals"
+  ]
+}
