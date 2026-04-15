@@ -1,8 +1,8 @@
 {
   "name": "Sleek",
   "slug": "sleek",
-  "version": "1.0.0",
-  "description": "A modern, clean theme with light and dark mode. Inspired by professional CRM interfaces.",
+  "version": "2.0.0",
+  "description": "A complete panel redesign with a 60px icon rail sidebar, indigo/violet palette, gradient accents, circular canvas gauges, horizontal server tabs, and full light/dark mode. Showcases the full extent of theme customisation.",
   "author": {
     "name": "BadgerPanel",
     "url": "https://badgerpanel.com"
@@ -11,6 +11,39 @@
     "panel_min": "0.1.0"
   },
   "overrides": [
-    "styles/globals"
+    "styles/globals",
+    "components/layout/header",
+    "components/layout/sidebar",
+    "components/layout/footer",
+    "components/ui/card",
+    "components/ui/button",
+    "components/ui/badge",
+    "components/ui/alert",
+    "components/ui/spinner",
+    "components/server/Console",
+    "components/server/ResourceMonitor",
+    "components/server/dashboard/ServerDashboardLayout",
+    "components/server/dashboard/ServerSidebar",
+    "components/server/dashboard/ServerStatsPanel",
+    "components/server/dashboard/ServerPowerControls",
+    "components/server/dashboard/ServerBottomCharts",
+    "components/server/resources/ResourceChart",
+    "components/server/resources/ResourceGraphPanel",
+    "components/server/overview/ServerStatCard",
+    "components/server/overview/QuickActionsBar",
+    "components/kubernetes/resources/ResourceGauge",
+    "components/kubernetes/resources/ResourceBar",
+    "components/billing/client/BillingDashboard",
+    "layouts/dashboard",
+    "layouts/billing",
+    "layouts/support",
+    "layouts/account",
+    "layouts/auth",
+    "layouts/servers",
+    "layouts/servers/[id]",
+    "pages/auth/login",
+    "pages/auth/forgot-password",
+    "pages/dashboard",
+    "pages/dashboard/servers"
   ]
 }
