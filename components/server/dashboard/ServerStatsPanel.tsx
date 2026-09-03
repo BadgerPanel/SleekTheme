@@ -155,7 +155,8 @@ export const ServerStatsPanel = memo(function ServerStatsPanel({ server, resourc
         </div>
       )}
 
-      <StatRow icon={<Globe className="h-4 w-4" />} label="Address" value={address} iconColor="#4795f5" />
+      <StatRow icon={<Globe className="h-4 w-4" />} label="Address" value={address} iconColor="#4795f5"
+        copyValue={address !== 'Not assigned' ? address : undefined} />
       <StatRow icon={<Clock className="h-4 w-4" />} label="Uptime" value={isOnline ? formatUptime(resources?.uptime_seconds || 0) : 'Offline'} iconColor="#22c55e" />
       <StatRow icon={<Cpu className="h-4 w-4" />} label="CPU" value={isOnline ? `${cpuPct.toFixed(1)}% / ${cpuLimit}%` : 'Offline'} iconColor="#f97316" />
       <StatRow icon={<MemoryStick className="h-4 w-4" />} label="Memory" value={isOnline && memUsed > 0 ? `${formatBytes(memUsed)} / ${memLimit > 0 ? formatBytes(memLimit) : '\u221e'}` : 'Offline'} iconColor="#4795f5" />
@@ -190,9 +191,52 @@ export const ServerStatsPanel = memo(function ServerStatsPanel({ server, resourc
   );
 });
 
-function StatRow({ icon, label, value, iconColor }: { icon: React.ReactNode; label: string; value: string; iconColor: string }) {
+// copyValue makes the row clickable and copies that string, which is what the
+// Address row is for. This override was a fork of the panel's own stats panel
+// from before the address could be copied, so under a theme clicking it did
+// nothing at all.
+function StatRow({ icon, label, value, iconColor, copyValue }: { icon: React.ReactNode; label: string; value: string; iconColor: string; copyValue?: string }) {
+  const interactive = !!copyValue;
+
+  const handleClick = async () => {
+    if (!copyValue) return;
+    try {
+      const { copyToClipboard } = await import('@/lib/clipboard');
+      const ok = await copyToClipboard(copyValue);
+      const { toast } = await import('sonner');
+      if (ok) toast.success(`Copied ${copyValue}`);
+      // Name the value so it can still be taken by hand. Copy fails outright
+      // on a panel served over plain HTTP.
+      else toast.error(`Could not copy. Select it by hand: ${copyValue}`);
+    } catch {
+      // ignore, copy is best effort
+    }
+  };
+
   return (
-    <div className="flex items-center gap-3 rounded-lg p-2.5" style={{ background: 'hsl(var(--muted))' }}>
+    <div
+      onClick={interactive ? handleClick : undefined}
+      role={interactive ? 'button' : undefined}
+      tabIndex={interactive ? 0 : undefined}
+      aria-label={interactive ? `Copy ${label} ${value}` : undefined}
+      onKeyDown={
+        interactive
+          ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleClick();
+              }
+            }
+          : undefined
+      }
+      title={interactive ? `Copy ${value}` : undefined}
+      className={`flex items-center gap-3 rounded-lg p-2.5 ${
+        interactive
+          ? 'cursor-pointer transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+          : ''
+      }`}
+      style={{ background: 'hsl(var(--muted))' }}
+    >
       <div className="p-1.5 rounded-lg" style={{ backgroundColor: `${iconColor}15`, color: iconColor }}>
         {icon}
       </div>

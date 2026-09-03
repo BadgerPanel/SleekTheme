@@ -1,7 +1,7 @@
 {
   "name": "Sleek",
   "slug": "sleek",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "A monochrome panel with navigation along the top rather than down the side. Written-out destinations, a neutral palette, full-width pages and a tighter measure on wide screens.",
   "author": {
     "name": "BadgerPanel",
