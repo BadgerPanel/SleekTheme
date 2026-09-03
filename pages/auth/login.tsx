@@ -16,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { Alert } from '@/components/ui/alert';
 import { TwoFactorVerification } from '@/components/auth/TwoFactorVerification';
 import { OAuthButtons } from '@/components/auth/OAuthButtons';
-import { Shield, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email'),
@@ -118,9 +118,6 @@ export default function LoginPage() {
   return (
     <div className="w-full max-w-[420px]">
       <div className="mb-8 text-center">
-        <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl mb-4" style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}>
-          <Shield className="h-7 w-7 text-white" />
-        </div>
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome back</h1>
         <p className="text-sm text-muted-foreground mt-1">Sign in to {panelName}</p>
       </div>
