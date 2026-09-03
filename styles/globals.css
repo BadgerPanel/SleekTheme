@@ -85,13 +85,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 
-.dark [class*="rounded"][class*="border"][class*="bg-card"],
-:root:not(.light) [class*="rounded"][class*="border"][class*="bg-card"] {
+/* An attribute selector matches the class string and not the state, so
+   peer-checked:bg-primary on a checkbox counted as a card and as a primary
+   button at once. Every checkbox came out a solid block. */
+.dark [class*="rounded"][class*="border"][class*="bg-card"]:not([class*="peer-checked"]),
+:root:not(.light) [class*="rounded"][class*="border"][class*="bg-card"]:not([class*="peer-checked"]) {
   border-color: rgba(255, 255, 255, 0.04) !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) !important;
 }
 
-.light [class*="rounded"][class*="border"][class*="bg-card"] {
+.light [class*="rounded"][class*="border"][class*="bg-card"]:not([class*="peer-checked"]) {
   border-color: rgba(0, 0, 0, 0.06) !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
 }
@@ -101,9 +104,13 @@ h1, h2, h3, h4, h5, h6 {
   border-color: hsl(var(--border)) !important;
 }
 
-button.bg-primary,
+/* Buttons and links only, and only where the plain bg-primary token is on
+   them. This used to match any class string containing bg-primary, which is
+   every bg-primary/10 tint on a div, span, label or table row, and every
+   checkbox. All of them were painted a solid block with no border. */
+button.bg-primary:not(.sleek-topbar *),
 a.bg-primary:not(.sleek-topbar a),
-[class*="bg-primary"]:not(.sleek-topbar *):not(.rounded-full):not(.h-2):not(.w-2):not(.h-5):not(.flex-shrink-0) {
+[role="button"].bg-primary:not(.sleek-topbar *) {
   background: hsl(var(--primary)) !important;
   color: hsl(var(--primary-foreground)) !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
