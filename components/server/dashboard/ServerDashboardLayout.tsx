@@ -83,7 +83,7 @@ export function ServerDashboardLayout({ children }: ServerDashboardLayoutProps) 
         <ServerIcon className="h-16 w-16 text-muted-foreground mb-4" />
         <h2 className="text-xl font-semibold text-foreground mb-2">Server Not Found</h2>
         <p className="text-muted-foreground">The server you&apos;re looking for doesn&apos;t exist or you don&apos;t have access.</p>
-        <Link href="/dashboard" className="mt-4 px-4 py-2 rounded-lg text-white text-sm font-medium" style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}>
+        <Link href="/dashboard" className="mt-4 px-4 py-2 rounded-lg text-white text-sm font-medium" style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}>
           Back to Dashboard
         </Link>
       </div>

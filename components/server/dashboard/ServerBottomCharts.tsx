@@ -155,9 +155,9 @@ export const ServerBottomCharts = memo(function ServerBottomCharts({ serverId, r
     <div className="bg-background border-t border-border p-4">
       <div className="flex gap-4 overflow-x-auto">
         <MiniChart title="CPU Load" icon={<Cpu className="h-4 w-4" />} data={cpuHistory}
-          currentValue={`${cpuPercent.toFixed(1)}%`} maxValue="100%" color="#7c3aed" />
+          currentValue={`${cpuPercent.toFixed(1)}%`} maxValue="100%" color="#4795f5" />
         <MiniChart title="Memory" icon={<MemoryStick className="h-4 w-4" />} data={memoryHistory}
-          currentValue={formatBytes(memoryBytes)} maxValue={memoryLimit > 0 ? formatBytes(memoryLimit) : '\u221e'} color="#a855f7" />
+          currentValue={formatBytes(memoryBytes)} maxValue={memoryLimit > 0 ? formatBytes(memoryLimit) : '\u221e'} color="#4795f5" />
         <MiniChart title="Network" icon={<Wifi className="h-4 w-4" />} data={networkHistory}
           currentValue={`${formatBytes(networkRate)}/s`} color="#22c55e" />
       </div>

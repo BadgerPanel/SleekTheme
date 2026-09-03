@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useAuthStore, useIsAdmin, useHasAdminAccess } from '@/stores/auth';
+import { useAuthStore, useHasAdminAccess } from '@/stores/auth';
 import { useSettings } from '@/contexts/SettingsContext';
 import { useUploadUrl } from '@/hooks/useUploadUrl';
 import {
@@ -20,8 +20,11 @@ import {
   ShoppingBag,
   FileText,
   Package,
+  ChevronDown,
+  Menu,
+  X,
 } from 'lucide-react';
-import { useState, memo, useMemo, useCallback, useRef } from 'react';
+import { useState, memo, useMemo, useCallback, useEffect } from 'react';
 
 interface NavItem {
   title: string;
@@ -29,12 +32,6 @@ interface NavItem {
   icon: React.ElementType;
   requiresBilling?: boolean;
   requiresTickets?: boolean;
-}
-
-interface NavSection {
-  id: string;
-  label: string;
-  items: NavItem[];
 }
 
 const mainItems: NavItem[] = [
@@ -62,55 +59,103 @@ const adminSupportItems: NavItem[] = [
   { title: 'Notifications', href: '/admin/notifications', icon: Bell },
 ];
 
-const RAIL_WIDTH = 60;
-const RAIL_WIDTH_MOBILE = 48;
-const FLYOUT_WIDTH = 200;
+export const TOP_BAR_HEIGHT = 56;
 
-export function Sidebar() {
+// Sleek puts navigation along the top rather than down the side.
+//
+// It used to be the same 60px icon rail as the Neon theme with different
+// colours in it, so the two themes were one layout twice and choosing between
+// them changed nothing but the palette. A bar is the other shape a panel comes
+// in, and the one most people have used before: the destinations are written
+// out rather than guessed from an icon, and the page underneath gets the whole
+// width instead of starting 60px in.
+//
+// Still exported as Sidebar, because that is the name the layout imports and
+// the override replaces a file rather than a concept.
+interface SidebarProps {
+  /** Driven by the layout's own menu button, the same as the base sidebar. */
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+}
+
+export const Sidebar = memo(function Sidebar({
+  mobileOpen: mobileOpenProp,
+  onMobileClose,
+}: SidebarProps = {}) {
   const pathname = usePathname();
   const hasAdminAccess = useHasAdminAccess();
   const logout = useAuthStore((state) => state.logout);
   const { settings } = useSettings();
   const { resolveUrl } = useUploadUrl();
 
-  const isIntegratedBilling = settings?.billing_enabled && settings?.billing_layout_mode === 'integrated';
+  const [adminOpen, setAdminOpen] = useState(false);
+  // Own state when nothing drives it from outside, which is what a layout that
+  // has no menu button of its own does.
+  const [ownMobileOpen, setOwnMobileOpen] = useState(false);
+  const controlled = mobileOpenProp !== undefined;
+  const mobileOpen = controlled ? mobileOpenProp : ownMobileOpen;
+  const setMobileOpen = (next: boolean) => {
+    if (controlled) {
+      if (!next) onMobileClose?.();
+      return;
+    }
+    setOwnMobileOpen(next);
+  };
 
-  const filteredMainItems = useMemo(() => mainItems.filter((item) => {
-    if (item.requiresBilling && !settings?.billing_enabled) return false;
-    if (item.requiresBilling && isIntegratedBilling) return false;
-    if (item.requiresTickets && !settings?.tickets_enabled) return false;
-    return true;
-  }), [settings?.billing_enabled, settings?.tickets_enabled, isIntegratedBilling]);
+  // Any move closes what was open, so a menu never outlives the page it was
+  // opened on.
+  useEffect(() => {
+    setAdminOpen(false);
+    setOwnMobileOpen(false);
+  }, [pathname]);
 
-  const filteredBillingItems = useMemo(() =>
-    isIntegratedBilling
-      ? billingIntegratedItems.filter((item) => !item.requiresBilling || settings?.billing_enabled)
-      : [],
+  const isIntegratedBilling =
+    settings?.billing_enabled && settings?.billing_layout_mode === 'integrated';
+
+  const filteredMainItems = useMemo(
+    () =>
+      mainItems.filter((item) => {
+        if (item.requiresBilling && !settings?.billing_enabled) return false;
+        if (item.requiresBilling && isIntegratedBilling) return false;
+        if (item.requiresTickets && !settings?.tickets_enabled) return false;
+        return true;
+      }),
+    [settings?.billing_enabled, settings?.tickets_enabled, isIntegratedBilling]
+  );
+
+  const filteredBillingItems = useMemo(
+    () =>
+      isIntegratedBilling
+        ? billingIntegratedItems.filter((item) => !item.requiresBilling || settings?.billing_enabled)
+        : [],
     [isIntegratedBilling, settings?.billing_enabled]
   );
 
-  const filteredAdminSupportItems = useMemo(() =>
-    adminSupportItems.filter((item) => !item.requiresTickets || settings?.tickets_enabled),
+  const filteredAdminSupportItems = useMemo(
+    () => adminSupportItems.filter((item) => !item.requiresTickets || settings?.tickets_enabled),
     [settings?.tickets_enabled]
   );
 
-  const sections: NavSection[] = useMemo(() => {
-    const s: NavSection[] = [{ id: 'main', label: 'Main', items: filteredMainItems }];
-    if (filteredBillingItems.length > 0) {
-      s.push({ id: 'billing', label: 'Billing', items: filteredBillingItems });
-    }
-    if (hasAdminAccess) {
-      s.push({ id: 'admin', label: 'Admin', items: adminItems });
-      s.push({ id: 'support', label: 'Support', items: filteredAdminSupportItems });
-    }
-    return s;
-  }, [filteredMainItems, filteredBillingItems, hasAdminAccess, filteredAdminSupportItems]);
+  const primaryItems = useMemo(
+    () => [...filteredMainItems, ...filteredBillingItems],
+    [filteredMainItems, filteredBillingItems]
+  );
 
-  const isItemActive = useCallback((href: string) => {
-    if (href === '/dashboard') return pathname === '/dashboard';
-    if (href === '/billing' && isIntegratedBilling) return pathname === '/billing';
-    return pathname === href || pathname?.startsWith(href + '/');
-  }, [pathname, isIntegratedBilling]);
+  const adminGroup = useMemo(
+    () => [...adminItems, ...filteredAdminSupportItems],
+    [filteredAdminSupportItems]
+  );
+
+  const isItemActive = useCallback(
+    (href: string) => {
+      if (href === '/dashboard') return pathname === '/dashboard';
+      if (href === '/billing' && isIntegratedBilling) return pathname === '/billing';
+      return pathname === href || pathname?.startsWith(href + '/');
+    },
+    [pathname, isIntegratedBilling]
+  );
+
+  const adminActive = adminGroup.some((item) => isItemActive(item.href));
 
   const handleLogout = async () => {
     try {
@@ -125,160 +170,142 @@ export function Sidebar() {
 
   const logoUrl = resolveUrl(settings?.logo_url) || resolveUrl(settings?.logo_dark_url);
 
+  const link = (item: NavItem, onNavigate?: () => void) => {
+    const active = isItemActive(item.href);
+    const Icon = item.icon;
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        onClick={onNavigate}
+        aria-current={active ? 'page' : undefined}
+        className={cn(
+          'sleek-nav-link flex items-center gap-2 rounded-md px-3 text-sm transition-colors',
+          'h-9 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+          active
+            ? 'bg-accent text-foreground font-medium'
+            : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground'
+        )}
+      >
+        <Icon className="h-4 w-4 shrink-0" />
+        {item.title}
+      </Link>
+    );
+  };
+
   return (
-    <aside
-      className="sleek-rail fixed left-0 top-0 z-40 flex h-screen flex-col"
+    <header
+      className="sleek-topbar fixed inset-x-0 top-0 z-40 border-b border-border"
       style={{
-        width: `${RAIL_WIDTH}px`,
-        background: 'hsl(232, 28%, 7%)',
-        boxShadow: '4px 0 24px -4px rgba(0, 0, 0, 0.3)',
+        height: TOP_BAR_HEIGHT,
+        background: 'hsl(var(--background) / 0.85)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
       }}
     >
-      <div
-        className="flex items-center justify-center flex-shrink-0"
-        style={{ height: '60px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
-      >
-        <Link href="/dashboard" className="flex items-center justify-center">
+      <nav aria-label="Main" className="mx-auto flex h-full max-w-[1600px] items-center gap-2 px-4">
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-2.5 rounded-md pr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
           {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt="Logo"
-              className="h-7 w-7 object-contain"
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
-            />
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={logoUrl} alt="" className="h-6 w-6 rounded object-contain" />
           ) : (
-            <div
-              className="flex h-8 w-8 items-center justify-center rounded-lg"
-              style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}
-            >
-              <Shield className="h-4 w-4 text-white" />
+            <span className="flex h-6 w-6 items-center justify-center rounded bg-foreground text-background">
+              <Shield className="h-3.5 w-3.5" />
+            </span>
+          )}
+          <span className="hidden text-sm font-semibold tracking-tight text-foreground sm:block">
+            {settings?.panel_name || 'BadgerPanel'}
+          </span>
+        </Link>
+
+        <span className="mx-1 hidden h-5 w-px bg-border md:block" aria-hidden="true" />
+
+        <div className="hidden items-center gap-1 md:flex">
+          {primaryItems.map((item) => link(item))}
+
+          {hasAdminAccess && adminGroup.length > 0 && (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setAdminOpen((v) => !v)}
+                aria-expanded={adminOpen}
+                aria-haspopup="true"
+                className={cn(
+                  'flex h-9 items-center gap-2 rounded-md px-3 text-sm transition-colors',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                  adminActive || adminOpen
+                    ? 'bg-accent text-foreground font-medium'
+                    : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground'
+                )}
+              >
+                <Shield className="h-4 w-4" />
+                Admin
+                <ChevronDown
+                  className={cn('h-3.5 w-3.5 transition-transform', adminOpen && 'rotate-180')}
+                />
+              </button>
+
+              {adminOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setAdminOpen(false)}
+                    aria-hidden="true"
+                  />
+                  <div className="absolute left-0 top-full z-20 mt-1 w-56 rounded-lg border border-border bg-card p-1 shadow-lg">
+                    {adminGroup.map((item) => link(item, () => setAdminOpen(false)))}
+                  </div>
+                </>
+              )}
             </div>
           )}
-        </Link>
-      </div>
+        </div>
 
-      <nav className="flex-1 overflow-y-auto py-3 px-0 scrollbar-hide">
-        {sections.map((section, sIdx) => (
-          <RailSection
-            key={section.id}
-            section={section}
-            isItemActive={isItemActive}
-            showDivider={sIdx > 0}
-          />
-        ))}
+        <div className="ml-auto flex items-center gap-1">
+          <button
+            type="button"
+            onClick={handleLogout}
+            title="Sign out"
+            aria-label="Sign out"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
 
-        {hasAdminAccess && (
-          <div className="px-2 mt-2">
-            <RailItem
-              item={{ title: 'Admin Panel', href: '/admin', icon: Shield }}
-              isActive={pathname?.startsWith('/admin') && !pathname?.startsWith('/admin/users') && !pathname?.startsWith('/admin/servers') && !pathname?.startsWith('/admin/nodes') && !pathname?.startsWith('/admin/support') && !pathname?.startsWith('/admin/notifications')}
-              accent
-            />
-          </div>
-        )}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:hidden"
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </div>
       </nav>
 
-      <div
-        className="flex-shrink-0 flex items-center justify-center py-3"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
-      >
-        <button
-          onClick={handleLogout}
-          className="flex items-center justify-center rounded-lg transition-colors relative group"
-          style={{ width: 36, height: 36, color: 'rgba(255,255,255,0.35)' }}
-          title="Logout"
-        >
-          <LogOut className="h-[18px] w-[18px]" />
-          <RailTooltip label="Logout" />
-        </button>
-      </div>
-    </aside>
-  );
-}
-
-function RailSection({
-  section,
-  isItemActive,
-  showDivider,
-}: {
-  section: NavSection;
-  isItemActive: (href: string) => boolean;
-  showDivider: boolean;
-}) {
-  return (
-    <>
-      {showDivider && (
-        <div className="mx-3 my-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }} />
+      {/* The same destinations stacked, for a screen too narrow to lay them out
+          in a row. */}
+      {mobileOpen && (
+        <div className="border-t border-border bg-card px-4 py-2 md:hidden">
+          <div className="flex flex-col gap-1">
+            {primaryItems.map((item) => link(item, () => setMobileOpen(false)))}
+            {hasAdminAccess && adminGroup.length > 0 && (
+              <>
+                <span className="mt-2 px-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Admin
+                </span>
+                {adminGroup.map((item) => link(item, () => setMobileOpen(false)))}
+              </>
+            )}
+          </div>
+        </div>
       )}
-      <div className="px-2 space-y-0.5">
-        {section.items.map((item) => (
-          <RailItem
-            key={item.href}
-            item={item}
-            isActive={isItemActive(item.href)}
-          />
-        ))}
-      </div>
-    </>
-  );
-}
-
-const RailItem = memo(function RailItem({
-  item,
-  isActive,
-  accent,
-}: {
-  item: NavItem;
-  isActive: boolean;
-  accent?: boolean;
-}) {
-  return (
-    <Link
-      href={item.href}
-      className="flex items-center justify-center rounded-lg transition-all relative group"
-      style={{
-        width: '100%',
-        height: 36,
-        ...(isActive
-          ? {
-              background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-              boxShadow: '0 4px 12px -2px rgba(124, 58, 237, 0.4)',
-            }
-          : accent
-          ? {
-              background: 'rgba(124, 58, 237, 0.1)',
-              border: '1px solid rgba(124, 58, 237, 0.2)',
-            }
-          : {}),
-      }}
-      title={item.title}
-    >
-      <item.icon
-        className="h-[18px] w-[18px]"
-        style={{
-          color: isActive
-            ? 'white'
-            : accent
-            ? 'rgba(167, 139, 250, 0.9)'
-            : 'rgba(255,255,255,0.45)',
-        }}
-      />
-      <RailTooltip label={item.title} />
-    </Link>
+    </header>
   );
 });
 
-function RailTooltip({ label }: { label: string }) {
-  return (
-    <span
-      className="absolute left-full ml-3 px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50"
-      style={{
-        background: 'hsl(230, 22%, 16%)',
-        color: 'rgba(255,255,255,0.9)',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-      }}
-    >
-      {label}
-    </span>
-  );
-}
+export default Sidebar;

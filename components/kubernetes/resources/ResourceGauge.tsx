@@ -18,13 +18,13 @@ export function ResourceGauge({ label, value, max, unit = '', colorClass, size =
     if (colorClass) return colorClass;
     if (percent >= 90) return 'text-red-500';
     if (percent >= 75) return 'text-yellow-500';
-    return 'text-violet-500';
+    return 'text-slate-500';
   };
 
   const getStrokeColor = () => {
     if (percent >= 90) return '#ef4444';
     if (percent >= 75) return '#eab308';
-    return '#7c3aed';
+    return '#4795f5';
   };
 
   const sizeConfig = {

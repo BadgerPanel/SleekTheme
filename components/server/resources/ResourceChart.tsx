@@ -18,10 +18,10 @@ interface ResourceChartProps {
 }
 
 const CHART_COLORS = {
-  cpu: { stroke: '#7c3aed', fill: '#7c3aed' },
-  memory: { stroke: '#a855f7', fill: '#a855f7' },
+  cpu: { stroke: '#4795f5', fill: '#4795f5' },
+  memory: { stroke: '#4795f5', fill: '#4795f5' },
   disk: { stroke: '#22c55e', fill: '#22c55e' },
-  network: { stroke: '#6366f1', fill: '#6366f1' },
+  network: { stroke: '#1b539f', fill: '#1b539f' },
 };
 
 export function ResourceChart({ data, period, type, height = 200, showGrid = true, showArea = true }: ResourceChartProps) {

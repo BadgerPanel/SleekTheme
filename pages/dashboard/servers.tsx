@@ -68,9 +68,9 @@ export default function ServersPage() {
               onClick={() => setFilter(key)}
               className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all"
               style={filter === key ? {
-                background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
+                background: 'linear-gradient(135deg, #2a6fd0, #1b539f)',
                 color: 'white',
-                boxShadow: '0 2px 8px -2px rgba(124, 58, 237, 0.4)',
+                boxShadow: '0 2px 8px -2px rgba(71, 149, 245, 0.4)',
               } : {
                 color: 'hsl(var(--muted-foreground))',
               }}
@@ -83,8 +83,8 @@ export default function ServersPage() {
 
         {servers.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="mb-4 rounded-2xl p-6" style={{ background: 'rgba(124, 58, 237, 0.08)' }}>
-              <ServerIcon className="h-12 w-12" style={{ color: '#7c3aed' }} />
+            <div className="mb-4 rounded-2xl p-6" style={{ background: 'rgba(71, 149, 245, 0.08)' }}>
+              <ServerIcon className="h-12 w-12" style={{ color: '#4795f5' }} />
             </div>
             <h2 className="mb-2 text-xl font-semibold">
               {filter === 'subuser' ? 'No shared servers' : 'No servers found'}

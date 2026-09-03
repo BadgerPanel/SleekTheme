@@ -67,7 +67,7 @@ function Sparkline({ data, color }: { data: number[]; color: string }) {
 }
 
 export function ServerStatCard({
-  label, value, subValue, icon: Icon, iconColor = '#7c3aed',
+  label, value, subValue, icon: Icon, iconColor = '#4795f5',
   trend, trendValue, sparklineData,
 }: ServerStatCardProps) {
   const getTrendColor = () => {

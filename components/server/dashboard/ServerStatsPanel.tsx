@@ -140,7 +140,7 @@ export const ServerStatsPanel = memo(function ServerStatsPanel({ server, resourc
   const getGaugeColor = (pct: number) => {
     if (pct >= 90) return '#ef4444';
     if (pct >= 70) return '#eab308';
-    return '#7c3aed';
+    return '#4795f5';
   };
 
   return (
@@ -155,10 +155,10 @@ export const ServerStatsPanel = memo(function ServerStatsPanel({ server, resourc
         </div>
       )}
 
-      <StatRow icon={<Globe className="h-4 w-4" />} label="Address" value={address} iconColor="#7c3aed" />
+      <StatRow icon={<Globe className="h-4 w-4" />} label="Address" value={address} iconColor="#4795f5" />
       <StatRow icon={<Clock className="h-4 w-4" />} label="Uptime" value={isOnline ? formatUptime(resources?.uptime_seconds || 0) : 'Offline'} iconColor="#22c55e" />
       <StatRow icon={<Cpu className="h-4 w-4" />} label="CPU" value={isOnline ? `${cpuPct.toFixed(1)}% / ${cpuLimit}%` : 'Offline'} iconColor="#f97316" />
-      <StatRow icon={<MemoryStick className="h-4 w-4" />} label="Memory" value={isOnline && memUsed > 0 ? `${formatBytes(memUsed)} / ${memLimit > 0 ? formatBytes(memLimit) : '\u221e'}` : 'Offline'} iconColor="#a855f7" />
+      <StatRow icon={<MemoryStick className="h-4 w-4" />} label="Memory" value={isOnline && memUsed > 0 ? `${formatBytes(memUsed)} / ${memLimit > 0 ? formatBytes(memLimit) : '\u221e'}` : 'Offline'} iconColor="#4795f5" />
       <StatRow icon={<HardDrive className="h-4 w-4" />} label="Disk" value={`${formatBytes(diskUsed)} / ${diskLimit > 0 ? formatBytes(diskLimit) : '\u221e'}`} iconColor="#06b6d4" />
       {isOnline && (
         <>
@@ -177,7 +177,7 @@ export const ServerStatsPanel = memo(function ServerStatsPanel({ server, resourc
           {isK8s && (
             <div className="flex justify-between">
               <span className="text-muted-foreground">Type</span>
-              <span style={{ color: '#7c3aed' }} className="text-[10px]">Kubernetes</span>
+              <span style={{ color: '#4795f5' }} className="text-[10px]">Kubernetes</span>
             </div>
           )}
           <div className="flex justify-between">

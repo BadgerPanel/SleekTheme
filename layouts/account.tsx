@@ -43,10 +43,10 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                     href={item.href}
                     className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors ${
                       isActive
-                        ? 'border-l-2 border-violet-500'
+                        ? 'border-l-2 border-slate-500'
                         : 'text-muted-foreground hover:text-foreground hover:bg-accent/50 border-l-2 border-transparent'
                     }`}
-                    style={isActive ? { color: '#a78bfa', backgroundColor: 'rgba(124, 58, 237, 0.08)' } : {}}
+                    style={isActive ? { color: '#94c2f9', backgroundColor: 'rgba(71, 149, 245, 0.08)' } : {}}
                   >
                     <Icon className="h-4 w-4" />
                     {item.label}

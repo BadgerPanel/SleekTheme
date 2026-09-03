@@ -93,7 +93,7 @@ export const ServerSidebar = memo(function ServerSidebar({ serverId, activeTab }
         <div className="flex-1" />
 
         {isAdmin && (
-          <Link href={`/admin/servers/${serverId}`} className="sleek-tab" style={{ color: '#a78bfa' }}>
+          <Link href={`/admin/servers/${serverId}`} className="sleek-tab" style={{ color: '#94c2f9' }}>
             <ShieldCheck className="h-4 w-4" />
             <span>Admin</span>
           </Link>

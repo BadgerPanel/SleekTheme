@@ -56,7 +56,7 @@ export const Header = memo(function Header({ title }: HeaderProps) {
 
   const typeColors: Record<string, string> = {
     support: 'bg-blue-500', billing: 'bg-emerald-500', server: 'bg-amber-500',
-    security: 'bg-red-500', system: 'bg-violet-500', info: 'bg-sky-500',
+    security: 'bg-red-500', system: 'bg-slate-500', info: 'bg-sky-500',
     success: 'bg-emerald-500', warning: 'bg-yellow-500', error: 'bg-red-500',
   };
 
@@ -74,7 +74,7 @@ export const Header = memo(function Header({ title }: HeaderProps) {
           <DropdownMenuTrigger className="relative overflow-visible inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors hover:bg-accent h-9 w-9">
             <Bell className="h-[18px] w-[18px] text-muted-foreground" />
             {unreadCount > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] font-semibold text-white" style={{ background: '#7c3aed' }}>
+              <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] font-semibold text-white" style={{ background: '#4795f5' }}>
                 {unreadCount > 99 ? '99+' : unreadCount}
               </span>
             )}
@@ -98,7 +98,7 @@ export const Header = memo(function Header({ title }: HeaderProps) {
             <p className="text-sm font-semibold leading-tight">{user?.username}</p>
             <p className="text-[11px] text-muted-foreground leading-tight">{user?.role?.name}</p>
           </div>
-          <div className="flex h-8 w-8 items-center justify-center rounded-full overflow-hidden" style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}>
+          <div className="flex h-8 w-8 items-center justify-center rounded-full overflow-hidden" style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}>
             {user?.avatar_url ? (
               <img src={user.avatar_url} alt={user.username || 'Avatar'} className="h-full w-full object-cover" />
             ) : (
@@ -124,7 +124,7 @@ function NotificationDropdownBody({
         <h3 className="text-sm font-semibold text-foreground">Notifications</h3>
         {unreadCount > 0 && (
           <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); markAllAsRead(); }}
-            className="text-xs flex items-center gap-1 font-medium" style={{ color: '#a78bfa' }}>
+            className="text-xs flex items-center gap-1 font-medium" style={{ color: '#94c2f9' }}>
             <Check className="h-3 w-3" /> Mark all read
           </button>
         )}
@@ -132,7 +132,7 @@ function NotificationDropdownBody({
       <div className="max-h-80 overflow-y-auto">
         {loadingNotifs ? (
           <div className="flex items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-5 w-5 border-2 border-t-transparent" style={{ borderColor: '#7c3aed' }} />
+            <div className="animate-spin rounded-full h-5 w-5 border-2 border-t-transparent" style={{ borderColor: '#4795f5' }} />
           </div>
         ) : notifications.length === 0 ? (
           <div className="py-8 text-center">
@@ -142,7 +142,7 @@ function NotificationDropdownBody({
         ) : (
           notifications.map((notif) => (
             <div key={notif.uuid}
-              className={`px-4 py-3 border-b border-border last:border-0 hover:bg-accent/50 cursor-pointer transition-colors ${!notif.read ? 'bg-violet-500/5' : ''}`}
+              className={`px-4 py-3 border-b border-border last:border-0 hover:bg-accent/50 cursor-pointer transition-colors ${!notif.read ? 'bg-slate-500/5' : ''}`}
               onClick={() => {
                 if (!notif.read) markAsRead(notif.uuid);
                 if (notif.action_url) { setOpen(false); window.location.href = notif.action_url; }
@@ -158,14 +158,14 @@ function NotificationDropdownBody({
                     {notif.action_url && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
                   </div>
                 </div>
-                {!notif.read && <div className="h-2 w-2 rounded-full flex-shrink-0 mt-2" style={{ background: '#7c3aed' }} />}
+                {!notif.read && <div className="h-2 w-2 rounded-full flex-shrink-0 mt-2" style={{ background: '#4795f5' }} />}
               </div>
             </div>
           ))
         )}
       </div>
       <div className="px-4 py-2.5 border-t border-border">
-        <Link href="/notifications" className="text-xs font-medium" style={{ color: '#a78bfa' }} onClick={() => setOpen(false)}>
+        <Link href="/notifications" className="text-xs font-medium" style={{ color: '#94c2f9' }} onClick={() => setOpen(false)}>
           View all notifications
         </Link>
       </div>

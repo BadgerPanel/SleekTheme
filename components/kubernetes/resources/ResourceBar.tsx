@@ -19,7 +19,7 @@ export function ResourceBar({ label, value, max, unit = '', icon: Icon, showPerc
   const getBarColor = () => {
     if (percent >= 90) return '#ef4444';
     if (percent >= 75) return '#eab308';
-    if (percent >= 50) return '#7c3aed';
+    if (percent >= 50) return '#4795f5';
     return '#22c55e';
   };
 

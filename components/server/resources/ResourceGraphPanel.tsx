@@ -19,10 +19,10 @@ const PERIODS: { value: ResourceHistoryPeriod; label: string }[] = [
 ];
 
 const RESOURCE_TYPES = [
-  { key: 'cpu' as const, label: 'CPU', icon: Cpu, color: '#7c3aed' },
-  { key: 'memory' as const, label: 'Memory', icon: MemoryStick, color: '#a855f7' },
+  { key: 'cpu' as const, label: 'CPU', icon: Cpu, color: '#4795f5' },
+  { key: 'memory' as const, label: 'Memory', icon: MemoryStick, color: '#4795f5' },
   { key: 'disk' as const, label: 'Disk', icon: HardDrive, color: '#22c55e' },
-  { key: 'network' as const, label: 'Network', icon: Network, color: '#6366f1' },
+  { key: 'network' as const, label: 'Network', icon: Network, color: '#1b539f' },
 ];
 
 export function ResourceGraphPanel({ serverId }: ResourceGraphPanelProps) {
@@ -48,7 +48,7 @@ export function ResourceGraphPanel({ serverId }: ResourceGraphPanelProps) {
               onClick={() => setPeriod(p.value)}
               className="px-3 py-1 text-xs font-medium rounded-md transition-all"
               style={period === p.value
-                ? { background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: 'white', boxShadow: '0 2px 6px -1px rgba(124,58,237,0.3)' }
+                ? { background: 'linear-gradient(135deg, #2a6fd0, #1b539f)', color: 'white', boxShadow: '0 2px 6px -1px rgba(71,149,245,0.3)' }
                 : { color: 'hsl(var(--muted-foreground))' }
               }
             >
@@ -78,7 +78,7 @@ export function ResourceGraphPanel({ serverId }: ResourceGraphPanelProps) {
       <div className="p-4">
         {isLoading ? (
           <div className="flex items-center justify-center h-[200px]">
-            <Loader2 className="h-8 w-8 animate-spin" style={{ color: '#7c3aed' }} />
+            <Loader2 className="h-8 w-8 animate-spin" style={{ color: '#4795f5' }} />
           </div>
         ) : error ? (
           <div className="flex items-center justify-center h-[200px]">

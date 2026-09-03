@@ -15,7 +15,7 @@ const sizeClasses = {
 };
 
 export function Spinner({ className, size = 'md' }: SpinnerProps) {
-  return <Loader2 className={cn('animate-spin', sizeClasses[size], className)} style={{ color: '#7c3aed' }} />;
+  return <Loader2 className={cn('animate-spin', sizeClasses[size], className)} style={{ color: '#4795f5' }} />;
 }
 
 interface LoadingProps {

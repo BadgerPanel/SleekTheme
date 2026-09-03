@@ -36,7 +36,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         ) : (
           <div
             className="flex h-14 w-14 items-center justify-center rounded-2xl"
-            style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}
+            style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}
           >
             <Shield className="h-7 w-7 text-white" />
           </div>

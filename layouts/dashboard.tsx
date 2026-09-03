@@ -26,11 +26,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (!_hasSession && !isAuthenticated) return null;
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen flex-col bg-background">
       <Sidebar />
-      <div className="flex-1 pl-[60px] flex flex-col min-h-screen transition-all duration-300 sleek-content">
-        <AnnouncementBanner className="mx-6 mt-4" />
-        <main className="flex-1">{children}</main>
+      <div className="flex flex-1 flex-col pt-14 sleek-content">
+        <AnnouncementBanner className="mx-auto mt-4 w-full max-w-[1600px] px-4" />
+        <main className="mx-auto w-full max-w-[1600px] flex-1 px-4 py-6">{children}</main>
         <Footer />
       </div>
       {showModal && <AnnouncementModal onClose={() => setShowModal(false)} />}

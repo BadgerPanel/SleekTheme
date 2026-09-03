@@ -87,7 +87,7 @@ export function Console({ serverId, serverName: serverNameProp }: ConsoleProps) 
     <div className="rounded-xl border border-border overflow-hidden flex flex-col h-full max-h-full bg-card">
       <div className="flex items-center justify-between px-4 py-2 border-b border-border shrink-0" style={{ background: 'hsl(var(--muted))' }}>
         <div className="flex items-center gap-3">
-          <TerminalIcon className="h-4 w-4" style={{ color: '#7c3aed' }} />
+          <TerminalIcon className="h-4 w-4" style={{ color: '#4795f5' }} />
           <span className="text-sm font-medium text-foreground">Console</span>
           <div className="flex items-center gap-1.5">
             <Circle className="h-2 w-2 fill-current" style={{ color: getStatusColor() }} />
@@ -113,13 +113,13 @@ export function Console({ serverId, serverName: serverNameProp }: ConsoleProps) 
 
       <form onSubmit={handleSubmit} className="border-t border-border shrink-0">
         <div className="flex items-center gap-3 px-4 py-3 bg-card">
-          <span className="font-mono text-sm font-bold" style={{ color: '#7c3aed' }}>{'\u00BB'}</span>
+          <span className="font-mono text-sm font-bold" style={{ color: '#4795f5' }}>{'\u00BB'}</span>
           <input ref={inputRef} type="text" value={command} onChange={(e) => setCommand(e.target.value)} onKeyDown={handleKeyDown}
             placeholder="Type a command..." className="flex-1 bg-transparent border-none outline-none text-foreground font-mono text-sm placeholder-muted-foreground"
             autoComplete="off" spellCheck={false} />
           <button type="submit" disabled={!command.trim()}
             className="p-2 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-colors hover:bg-accent"
-            style={{ color: command.trim() ? '#7c3aed' : 'hsl(var(--muted-foreground))' }}>
+            style={{ color: command.trim() ? '#4795f5' : 'hsl(var(--muted-foreground))' }}>
             <Send className="h-4 w-4" />
           </button>
         </div>

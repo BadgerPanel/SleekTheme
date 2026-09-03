@@ -1,67 +1,88 @@
 # Sleek Theme
 
-A complete visual overhaul for BadgerPanel. Designed to showcase the full extent of theme customisation for third-party developers.
+A complete visual overhaul for BadgerPanel. It shows the full extent of theme
+customization for third-party developers.
 
 ## Install
 
-1. Download `sleek.bptheme` from the [latest release](https://github.com/BadgerPanel/SleekTheme/releases)
-2. In your panel, go to **Admin > Appearance > Themes**
-3. Click **Import Theme** and activate
+1. Download `sleek.bptheme` from the [latest release](https://github.com/BadgerPanel/SleekTheme/releases).
+2. In your panel, go to **Admin > Appearance > Themes**.
+3. Click **Import Theme**, then activate the theme.
 
 ## What it changes
 
 ### Navigation
-- **60px icon rail sidebar** replaces the default 256px sidebar. Icons only with tooltip labels on hover. Always dark, works across all client-facing layouts.
-- **Horizontal tab strip** on the server console detail page replaces the default vertical sidebar tabs.
 
-### Colour palette
-- **Primary**: Indigo/violet gradient (`#7c3aed` to `#4f46e5`) replaces the default cyan
-- **Dark mode**: Deep slate background (`hsl(230, 25%, 9%)`) with violet undertones
-- **Light mode**: Warm gray (`hsl(240, 10%, 96%)`) with violet accents
-- **All indigo references** globally remapped to violet equivalents
-- **All zinc references** globally remapped to CSS variable tokens
+Navigation runs along the top of the window in a 56px bar, so the page below it
+gets the whole width. Every destination is written out rather than shown as an
+icon you have to hover to identify, and the admin sections collapse into one
+menu so the bar stays short for operators who never open them. On a narrow
+screen the same destinations stack under the bar.
+
+The server console detail page keeps its horizontal tab strip in place of the
+default vertical sidebar tabs.
+
+### Color palette
+
+The panel is near enough to monochrome. Emphasis comes from contrast and weight
+rather than hue, so a page of numbers reads as a page of numbers.
+
+- **Background**: `hsl(220, 14%, 7%)`, with cards a few percent lighter.
+- **Primary**: near-white, with dark text on it.
+- **Accent**: one blue, `hsl(213, 90%, 62%)`, used for focus rings, links, chart
+  lines and filled buttons. Filled buttons use a darker blue so white text on
+  them stays above 4.5:1.
+- **Indigo and zinc references** across the rest of the panel remap to this
+  palette, which covers pages that have no override of their own.
 
 ### Server console
-- **Circular canvas gauges** for CPU, RAM, and Disk in the stats panel (replaces progress bars)
-- **Violet-palette mini-charts** in the bottom chart area
-- **Restyled terminal** with darker background and violet command prompt
-- **Power controls** with direct-colour buttons
 
-### Charts & visualisations
-- **Recharts** restyled with violet/indigo gradient fills, custom dark tooltip cards
-- **ServerStatCard** with optional inline sparkline canvas
-- **K8s ResourceGauge** SVG ring with violet stroke
-- **ResourceGraphPanel** with violet period selector pills and tab underlines
+- **Circular canvas gauges** for CPU, RAM, and Disk in the stats panel. They
+  replace the progress bars.
+- **Restyled terminal** with a darker background.
+- **Power controls** with direct-color buttons.
+
+### Charts and visualizations
+
+- **Recharts** restyled with a single accent fill and dark tooltip cards.
+- **ServerStatCard** with an optional inline sparkline canvas.
+- **K8s ResourceGauge** SVG ring.
+- **ResourceGraphPanel** with period selector pills and tab underlines.
 
 ### UI components
-- **Button**: Default variant uses violet gradient with shadow
-- **Card**: Shadow-based elevation, minimal borders
-- **Badge**: Default variant uses violet gradient
-- **Alert**: Info variant uses violet instead of blue
-- **Spinner**: Violet colour
+
+- **Card**: shadow-based elevation and minimal borders.
+- **Button**, **Badge**, **Alert** and **Spinner** follow the palette above.
 
 ### Billing
-- **Integrated mode**: Uses icon rail sidebar with `pl-[60px]`
-- **Separate mode**: Violet gradient navigation bar, Sleek card/button styling
 
-### Light / Dark mode
-- Dark is the default. Sun/moon toggle in the header saves preference to localStorage.
-- Inter font loaded dynamically via the header component.
+- **Integrated mode**: uses the top bar, the same as the rest of the panel.
+- **Separate mode**: its own navigation bar with Sleek card and button styling.
+
+### Light and dark mode
+
+Dark is the default. The sun and moon toggle in the header saves the preference
+to localStorage. The header component loads the Inter font dynamically.
 
 ## Override count
 
-33 file overrides across:
-- 5 UI components (button, card, badge, alert, spinner)
-- 3 layout components (header, sidebar, footer)
-- 10 server components (console, dashboard layout, sidebar tabs, stats panel, power controls, bottom charts, resource chart, graph panel, stat card, quick actions)
-- 2 K8s components (gauge, bar)
-- 1 resource monitor
-- 7 layouts (dashboard, billing, support, account, auth, servers, servers/[id])
-- 4 pages (login, forgot-password, dashboard, servers list)
-- 1 CSS globals
+34 file overrides across:
 
-Plus comprehensive CSS class remapping that covers all remaining pages without individual overrides.
+- 5 UI components (button, card, badge, alert, spinner).
+- 3 layout components (header, sidebar, footer).
+- 11 server components (console, resource monitor, dashboard layout, sidebar
+  tabs, stats panel, power controls, bottom charts, resource chart, graph panel,
+  stat card, quick actions).
+- 2 K8s components (gauge, bar).
+- 1 billing component.
+- 7 layouts (dashboard, billing, support, account, auth, servers, servers/[id]).
+- 4 pages (login, forgot-password, dashboard, servers list).
+- 1 CSS globals.
+
+The theme also remaps CSS classes across the panel. This remapping covers all
+remaining pages without individual overrides.
 
 ## Building your own
 
-See the [Standard Theme](https://github.com/BadgerPanel/StandardTheme) for the full development guide.
+See the [Standard Theme](https://github.com/BadgerPanel/StandardTheme) for the
+full development guide.

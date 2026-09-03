@@ -21,7 +21,7 @@ export function BillingDashboard() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <Loader2 className="h-8 w-8 animate-spin" style={{ color: '#7c3aed' }} />
+        <Loader2 className="h-8 w-8 animate-spin" style={{ color: '#4795f5' }} />
       </div>
     );
   }
@@ -37,7 +37,7 @@ export function BillingDashboard() {
       <div
         className="relative rounded-2xl overflow-hidden p-8"
         style={{
-          background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 40%, #6366f1 70%, #8b5cf6 100%)',
+          background: 'linear-gradient(135deg, hsl(220 13% 14%) 0%, hsl(220 14% 11%) 45%, hsl(213 45% 22%) 100%)',
           minHeight: 160,
         }}
       >
@@ -47,15 +47,15 @@ export function BillingDashboard() {
         <div className="relative z-10 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="h-4 w-4 text-violet-200" />
-              <span className="text-sm font-medium text-violet-200">Billing Portal</span>
+              <Sparkles className="h-4 w-4 text-slate-300" />
+              <span className="text-sm font-medium text-slate-300">Billing Portal</span>
             </div>
             <h1 className="text-3xl font-bold text-white mb-1">Welcome back, {displayName}</h1>
-            <p className="text-violet-200 text-sm">Manage your services, invoices, and payments</p>
+            <p className="text-slate-300 text-sm">Manage your services, invoices, and payments</p>
           </div>
           <Link
             href="/billing/order"
-            className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-violet-900 transition-all hover:scale-105"
+            className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-900 transition-all hover:scale-105"
             style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)' }}
           >
             <ShoppingCart className="h-4 w-4" />
@@ -70,7 +70,7 @@ export function BillingDashboard() {
           value={dashboard?.active_services || 0}
           label="Active Services"
           href="/billing/services"
-          color="#7c3aed"
+          color="#4795f5"
         />
         <GlassStatCard
           icon={FileText}
@@ -126,8 +126,8 @@ export function BillingDashboard() {
                     style={{ background: 'hsl(var(--muted))' }}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
-                        <Server className="h-4 w-4" style={{ color: '#7c3aed' }} />
+                      <div className="p-2 rounded-lg" style={{ background: 'rgba(71, 149, 245, 0.1)' }}>
+                        <Server className="h-4 w-4" style={{ color: '#4795f5' }} />
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-foreground">{order.order_number}</p>
@@ -145,11 +145,11 @@ export function BillingDashboard() {
               </div>
             ) : (
               <div className="text-center py-12 px-4">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(124, 58, 237, 0.08)' }}>
-                  <Package className="h-8 w-8" style={{ color: '#7c3aed' }} />
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(71, 149, 245, 0.08)' }}>
+                  <Package className="h-8 w-8" style={{ color: '#4795f5' }} />
                 </div>
                 <p className="text-muted-foreground mb-4">No active services yet</p>
-                <Link href="/billing/order" className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: '#a78bfa' }}>
+                <Link href="/billing/order" className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: '#94c2f9' }}>
                   Browse available products <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -189,10 +189,10 @@ export function BillingDashboard() {
 
         <div className="space-y-6">
           <div className="bg-card rounded-2xl border border-border overflow-hidden">
-            <div className="p-6 text-center" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.08), rgba(79,70,229,0.04))' }}>
+            <div className="p-6 text-center" style={{ background: 'linear-gradient(135deg, rgba(71,149,245,0.08), rgba(31,109,204,0.04))' }}>
               <div
                 className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3"
-                style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}
+                style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}
               >
                 {user?.first_name?.[0] || user?.username?.[0] || 'U'}
               </div>
@@ -203,7 +203,7 @@ export function BillingDashboard() {
               <Link
                 href="/account"
                 className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-white transition-all hover:opacity-90"
-                style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}
+                style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}
               >
                 <Settings className="h-4 w-4" /> Manage Account
               </Link>
@@ -213,7 +213,7 @@ export function BillingDashboard() {
           <div className="bg-card rounded-2xl border border-border overflow-hidden">
             <div className="px-5 py-3.5 border-b border-border">
               <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-                <Zap className="h-4 w-4" style={{ color: '#7c3aed' }} /> Quick Actions
+                <Zap className="h-4 w-4" style={{ color: '#4795f5' }} /> Quick Actions
               </h3>
             </div>
             <div className="p-2">
@@ -288,10 +288,10 @@ function SleekSection({ icon: Icon, title, linkHref, linkText, children }: {
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
       <div className="flex items-center justify-between px-5 py-3.5 border-b border-border">
         <div className="flex items-center gap-2">
-          <Icon className="h-4 w-4" style={{ color: '#7c3aed' }} />
+          <Icon className="h-4 w-4" style={{ color: '#4795f5' }} />
           <h2 className="text-sm font-semibold text-foreground">{title}</h2>
         </div>
-        <Link href={linkHref} className="text-xs font-medium flex items-center gap-1" style={{ color: '#a78bfa' }}>
+        <Link href={linkHref} className="text-xs font-medium flex items-center gap-1" style={{ color: '#94c2f9' }}>
           {linkText} <ExternalLink className="h-3 w-3" />
         </Link>
       </div>

@@ -68,7 +68,7 @@ export default function DashboardPage() {
       <>
         <Header title="Dashboard" />
         <div className="p-6">
-          <div className="rounded-2xl p-8 mb-8" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(79,70,229,0.1))' }}>
+          <div className="rounded-2xl p-8 mb-8" style={{ background: 'linear-gradient(135deg, rgba(71,149,245,0.15), rgba(31,109,204,0.1))' }}>
             <div className="h-8 w-64 bg-white/10 rounded animate-pulse mb-2" />
             <div className="h-5 w-80 bg-white/5 rounded animate-pulse" />
           </div>
@@ -119,7 +119,7 @@ export default function DashboardPage() {
         <div
           className="rounded-2xl p-8 mb-8 relative overflow-hidden"
           style={{
-            background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #6366f1 100%)',
+            background: 'linear-gradient(135deg, #2a6fd0 0%, #1b539f 50%, #164a8c 100%)',
           }}
         >
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, white 0%, transparent 70%)', transform: 'translate(30%, -40%)' }} />
@@ -127,11 +127,11 @@ export default function DashboardPage() {
 
           <div className="relative z-10">
             <div className="flex items-center gap-2 mb-1">
-              <Zap className="h-5 w-5 text-violet-200" />
-              <span className="text-sm font-medium text-violet-200">Welcome back</span>
+              <Zap className="h-5 w-5 text-slate-300" />
+              <span className="text-sm font-medium text-slate-300">Welcome back</span>
             </div>
             <h2 className="text-3xl font-bold text-white mb-1">{user?.username}</h2>
-            <p className="text-violet-200 text-sm">
+            <p className="text-slate-300 text-sm">
               You have {runningServers} server{runningServers !== 1 ? 's' : ''} running out of {totalServers} total.
             </p>
           </div>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
             description="Servers in your account"
             icon={Server}
             href="/dashboard/servers"
-            color="#7c3aed"
+            color="#4795f5"
           />
           <SleekStatsCard
             title="Running"
@@ -191,8 +191,8 @@ export default function DashboardPage() {
           <CardContent>
             {servers.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="rounded-2xl p-4 mb-4" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
-                  <Server className="h-8 w-8" style={{ color: '#7c3aed' }} />
+                <div className="rounded-2xl p-4 mb-4" style={{ background: 'rgba(71, 149, 245, 0.1)' }}>
+                  <Server className="h-8 w-8" style={{ color: '#4795f5' }} />
                 </div>
                 <h3 className="text-lg font-semibold">No servers yet</h3>
                 <p className="text-sm text-muted-foreground mt-1">
@@ -207,7 +207,7 @@ export default function DashboardPage() {
                   <Link
                     key={server.id}
                     href={`/servers/${server.uuid || server.id}`}
-                    className="flex items-center justify-between rounded-xl border border-border p-4 transition-all hover:bg-accent/50 hover:border-violet-500/20"
+                    className="flex items-center justify-between rounded-xl border border-border p-4 transition-all hover:bg-accent/50 hover:border-slate-500/20"
                   >
                     <div className="flex items-center gap-4">
                       <div

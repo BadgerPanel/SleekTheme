@@ -33,7 +33,7 @@ function Badge({ className, variant, style, ...props }: BadgeProps) {
   return (
     <div
       className={cn(badgeVariants({ variant }), className)}
-      style={isDefault ? { background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', ...style } : style}
+      style={isDefault ? { background: 'linear-gradient(135deg, #2a6fd0, #1b539f)', ...style } : style}
       {...props}
     />
   );

@@ -1,8 +1,8 @@
 {
   "name": "Sleek",
   "slug": "sleek",
-  "version": "2.0.0",
-  "description": "A complete panel redesign with a 60px icon rail sidebar, indigo/violet palette, gradient accents, circular canvas gauges, horizontal server tabs, and full light/dark mode. Showcases the full extent of theme customisation.",
+  "version": "3.0.0",
+  "description": "A monochrome panel with navigation along the top rather than down the side. Written-out destinations, a neutral palette, full-width pages and a tighter measure on wide screens.",
   "author": {
     "name": "BadgerPanel",
     "url": "https://badgerpanel.com"

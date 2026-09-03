@@ -19,7 +19,7 @@ const buttonVariants = cva(
         success: 'bg-green-600 text-white shadow hover:bg-green-700',
         warning: 'bg-yellow-500 text-white shadow hover:bg-yellow-600',
         glass: 'bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg hover:bg-white/20',
-        'glass-primary': 'bg-violet-500/20 backdrop-blur-md border border-violet-500/30 text-white shadow-lg hover:bg-violet-500/30',
+        'glass-primary': 'bg-slate-500/20 backdrop-blur-md border border-slate-500/30 text-white shadow-lg hover:bg-slate-500/30',
       },
       size: {
         default: 'h-9 px-4 py-2',
@@ -47,11 +47,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, isLoading, animation = 'none', children, disabled, ...props }, ref) => {
     const isDefault = !variant || variant === 'default';
     const gradientStyle = isDefault ? {
-      background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-      boxShadow: '0 2px 8px -2px rgba(124, 58, 237, 0.4)',
+      background: 'linear-gradient(135deg, #2a6fd0, #1b539f)',
+      boxShadow: '0 2px 8px -2px rgba(71, 149, 245, 0.4)',
     } : undefined;
 
-    const linkStyle = variant === 'link' ? { color: '#a78bfa' } : undefined;
+    const linkStyle = variant === 'link' ? { color: '#94c2f9' } : undefined;
 
     return (
       <button

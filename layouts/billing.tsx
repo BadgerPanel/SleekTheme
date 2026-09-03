@@ -25,9 +25,9 @@ interface BillingTheme {
 }
 
 const defaultTheme: BillingTheme = {
-  primary: '#7c3aed', secondary: '#4f46e5', accent: '#a78bfa',
+  primary: '#4795f5', secondary: '#1b539f', accent: '#94c2f9',
   background: '#111827', surface: '#1f2937', header: '#1f2937',
-  nav: '#7c3aed', text: '#ffffff', textMuted: '#9ca3af',
+  nav: '#4795f5', text: '#ffffff', textMuted: '#9ca3af',
   border: '#374151', success: '#22c55e', warning: '#f59e0b',
   error: '#ef4444', customCSS: '',
 };
@@ -67,11 +67,11 @@ export default function BillingLayout({ children }: { children: React.ReactNode 
       const response = await api.get('/settings/billing-theme');
       const data = response.data?.data || {};
       setBillingTheme({
-        primary: '#7c3aed', secondary: '#4f46e5', accent: '#a78bfa',
+        primary: '#4795f5', secondary: '#1b539f', accent: '#94c2f9',
         background: data.billing_background_color || defaultTheme.background,
         surface: data.billing_surface_color || defaultTheme.surface,
         header: data.billing_header_color || defaultTheme.header,
-        nav: '#7c3aed', text: data.billing_text_color || defaultTheme.text,
+        nav: '#4795f5', text: data.billing_text_color || defaultTheme.text,
         textMuted: data.billing_text_muted_color || defaultTheme.textMuted,
         border: data.billing_border_color || defaultTheme.border,
         success: data.billing_success_color || defaultTheme.success,
@@ -121,19 +121,19 @@ export default function BillingLayout({ children }: { children: React.ReactNode 
 
   if (isIntegrated) {
     const themeVars = {
-      '--billing-primary': '#7c3aed',
-      '--billing-secondary': '#4f46e5',
-      '--billing-accent': '#a78bfa',
+      '--billing-primary': '#4795f5',
+      '--billing-secondary': '#1b539f',
+      '--billing-accent': '#94c2f9',
       '--billing-success': '#22c55e',
       '--billing-warning': '#f59e0b',
       '--billing-error': '#ef4444',
     } as React.CSSProperties;
 
     return (
-      <div className="flex min-h-screen bg-background">
+      <div className="flex min-h-screen flex-col bg-background">
         <Sidebar />
-        <div className="flex-1 pl-[60px] flex flex-col min-h-screen transition-all duration-300 billing-area sleek-content" style={themeVars}>
-          <main className="flex-1">{children}</main>
+        <div className="flex flex-1 flex-col pt-14 billing-area sleek-content" style={themeVars}>
+          <main className="mx-auto w-full max-w-[1600px] flex-1 px-4 py-6">{children}</main>
           <Footer />
         </div>
       </div>
@@ -153,7 +153,7 @@ export default function BillingLayout({ children }: { children: React.ReactNode 
               {logoUrl ? (
                 <img src={logoUrl} alt={panelName} className="h-10 w-auto object-contain" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
               ) : (
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}>
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}>
                   <Shield className="h-6 w-6 text-white" />
                 </div>
               )}
@@ -170,7 +170,7 @@ export default function BillingLayout({ children }: { children: React.ReactNode 
 
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ml-2">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}>
                     <span className="text-sm font-medium text-white">{user?.first_name?.[0] || user?.username?.[0] || 'U'}</span>
                   </div>
                   <div className="hidden md:block text-left">
@@ -186,7 +186,7 @@ export default function BillingLayout({ children }: { children: React.ReactNode 
           </div>
         </div>
 
-        <nav style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}>
+        <nav style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
               {billingNavItems.map((item) => {
@@ -250,7 +250,7 @@ function BillingUserMenuBody({ user, isAdmin, handleLogout }: { user: UserType |
           <Wallet className="h-4 w-4" /> Credits
         </Link>
         {isAdmin && (
-          <Link href="/admin" className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors" style={{ color: '#a78bfa' }} onClick={() => setOpen(false)}>
+          <Link href="/admin" className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors" style={{ color: '#94c2f9' }} onClick={() => setOpen(false)}>
             <Shield className="h-4 w-4" /> Admin Area
           </Link>
         )}

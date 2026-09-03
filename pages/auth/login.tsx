@@ -118,7 +118,7 @@ export default function LoginPage() {
   return (
     <div className="w-full max-w-[420px]">
       <div className="mb-8 text-center">
-        <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl mb-4" style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}>
+        <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl mb-4" style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)' }}>
           <Shield className="h-7 w-7 text-white" />
         </div>
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome back</h1>
@@ -149,7 +149,7 @@ export default function LoginPage() {
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
             <Label htmlFor="password" className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Password</Label>
-            <Link href="/auth/forgot-password" className="text-xs font-medium" style={{ color: '#a78bfa' }}>
+            <Link href="/auth/forgot-password" className="text-xs font-medium" style={{ color: '#94c2f9' }}>
               Forgot password?
             </Link>
           </div>
@@ -168,7 +168,7 @@ export default function LoginPage() {
           type="submit"
           className="w-full h-11 rounded-lg text-sm font-semibold"
           isLoading={isLoading}
-          style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', border: 'none' }}
+          style={{ background: 'linear-gradient(135deg, #2a6fd0, #1b539f)', border: 'none' }}
         >
           {!isLoading && (
             <>
@@ -183,7 +183,7 @@ export default function LoginPage() {
         {settings?.registration_enabled !== false && (
           <p className="text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{' '}
-            <Link href="/auth/register" className="font-medium hover:underline" style={{ color: '#a78bfa' }}>
+            <Link href="/auth/register" className="font-medium hover:underline" style={{ color: '#94c2f9' }}>
               Create one
             </Link>
           </p>

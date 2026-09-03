@@ -43,7 +43,7 @@ export function ResourceMonitor({ resources: initialResources, serverId, compact
   const getBarColor = (percent: number) => {
     if (percent >= 90) return '#ef4444';
     if (percent >= 75) return '#eab308';
-    return '#7c3aed';
+    return '#4795f5';
   };
 
   const getTextColor = (percent: number) => {
